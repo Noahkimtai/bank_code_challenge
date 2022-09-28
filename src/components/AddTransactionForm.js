@@ -9,28 +9,34 @@ function AddTransactionForm() {
   const [amount, setAmount] =useState(0)
   const [submittedData, setSubmittedData] =useState([])
 
-  function handleSubmit(e){
-    e.preventDafault()
-    const formData = {
+  function handleSubmit(event){
+    event.preventDafault();
+
+    const formList = {
       date:date,
       description:description,
       category:category,
       amount:amount
-    }
-    const transactionArray =[...submittedData, formData]
-    setSubmittedData(transactionArray);
+    };
+    const formData =[...submittedData, formList,]
+    setSubmittedData(formData);
 
     // Add submission to transaction list on the page
     /* transactionArray.map((transactionEl) =><Transaction transaction ={transactionEl}/>) */
-    alert(transactionArray.date)
+    alert(formData.date)
     // post the data to db.json
     fetch('http://localhost:3002/transactions',{
       method:'POST',
+      body: JSON.stringify(formData),
       headers:{
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify(transactionArray)
-    })
+      }
+    }
+    )
+    setDate('');
+    setDescription('');
+    setCategory('');
+    setAmount('');
 };
   function handleDateChange(e){
     setDate(e.target.value);
@@ -48,9 +54,9 @@ function AddTransactionForm() {
   
   return (
     <div className="ui segment">
-      <form className="ui form" onSubmit={(e) => handleSubmit(e)}>
+      <form className="ui form" onSubmit={handleSubmit}>
         <div className="inline fields">
-          <input type="date" name="date" onChange={e =>handleDateChange} value={date}/>
+          <input type="date" name="date" onChange={handleDateChange} value={date}/>
           <input type="text" name="description" placeholder="Description" onChange={handleDescriptionChange} value={description} />
           <input type="text" name="category" placeholder="Category" onChange={handleCategoryChange} value={category} />
           <input type="number" name="amount" placeholder="Amount" step="0.01" onChange={handleAmountChange} value={amount} />

@@ -1,20 +1,8 @@
 import React, {useState, useEffect} from "react";
 import Transaction from "./Transaction";
 
-// TransactionList component should fetch all the transactions form db.json
-// for every transaction fetched Transaction component will be rendered 
-// It passes transaction down to Transaction component
-function TransactionsList() {
-  // create state to hold the list of transactions
-  const [transactionList, setTransactionList] = useState([]);
-  // fetch list of transactions as a side effect of the page load
-  useEffect(() =>{
-    fetch('http://localhost:3002/transactions').then(res => res.json())
-    .then(data => setTransactionList(data))
-  },[]);
 
-  //create Transaction component for every 
-  const transactionRow = transactionList.map((transactionEl,index) =><Transaction key={index} transaction ={transactionEl}/>)
+function TransactionsList({transactionList}) {
   return (
     <table className="ui celled striped padded table">
       <tbody>
@@ -33,7 +21,7 @@ function TransactionsList() {
           </th>
         </tr>
         {/* render a list of <Transaction> components here */}
-        {transactionRow}
+        {transactionList.map((transactionEl) =><Transaction key={transactionEl.id} transaction ={transactionEl}/>)}
       </tbody>
     </table>
   );
