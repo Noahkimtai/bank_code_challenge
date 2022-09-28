@@ -24,11 +24,34 @@ function AccountContainer() {
     setTransactionList(filteredData)
   });
   }
+
+  //handle formdata 
+  // Add submission to transaction list on the page
+    /* transactionArray.map((transactionEl) =><Transaction transaction ={transactionEl}/>) */
+    // post the data to db.json
+  function postFormData(formData){  
+    fetch('http://localhost:3002/transactions',{
+      method:'POST',
+      body: JSON.stringify(formData),
+      headers:{
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
+    }
+    ).then(r => r.json())
+    .then(data => {
+      let newArray = [];
+      newArray.push(data)
+      // update the dom with posted data
+      setTransactionList(newArray)
+      alert('Your transaction was added successfully!')
+    });
+  }
   
   return (
     <div>
       <Search searchLogic ={searchLogic}/>
-      <AddTransactionForm />
+      <AddTransactionForm postFormData ={postFormData}/>
       <TransactionsList transactionList = {transactionList}/>
     </div>
   );
