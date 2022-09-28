@@ -14,7 +14,7 @@ function TransactionsList() {
   },[]);
 
   //create Transaction component for every 
-  const transactionRow = transactionList.map((transactionEl) =><Transaction transaction ={transactionEl}/>)
+  const transactionRow = transactionList.map((transactionEl,index) =><Transaction key={index} transaction ={transactionEl}/>)
   return (
     <table className="ui celled striped padded table">
       <tbody>

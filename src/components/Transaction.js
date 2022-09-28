@@ -5,10 +5,10 @@ import React from "react";
 function Transaction({transaction}) {
   return (
     <tr>
-      <td>{"your code here..."} this component gets loaded{transaction.date}</td>
-      <td>{"your code here..."}{transaction.description}</td>
-      <td>{"your code here..."}{transaction.category}</td>
-      <td>{"your code here..."}{transaction.amount}</td>
+      <td>{transaction.date}</td>
+      <td>{transaction.description}</td>
+      <td>{transaction.category}</td>
+      <td>{transaction.amount}</td>
     </tr>
   );
 }
