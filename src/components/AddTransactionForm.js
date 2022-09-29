@@ -20,6 +20,27 @@ function AddTransactionForm({TransactionList}) {
       amount:amount
     };
     setSubmittedData(formData);
+  // when formData has been updated useEffect to call the function that will post the data to server
+  // Add submission to transaction list on the page
+  // post the data to db.json
+  useEffect(() =>{ 
+    setTransactionList([...TransactionList,submittedData])
+    fetch('http://localhost:3002/transactions',{
+      method:'POST',
+      body: JSON.stringify(submittedData),
+      headers:{
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
+    }
+    ).then(r => r.json())
+    .then(data => {
+      let newArray = [...TransactionList];
+      newArray.push(data)
+      setTransactionList(newArray)
+      alert('Your transaction was added successfully!')
+      });
+    },[submittedData])
     //Clear the fields
     setDate('');
     setDescription('');
@@ -41,29 +62,6 @@ function AddTransactionForm({TransactionList}) {
   function handleAmountChange(e){
     setAmount(e.target.value);
   }
-  // when formData has been updated useEffect to call the function that will post the data to server
-  // Add submission to transaction list on the page
-  // post the data to db.json
-  useEffect(() =>{
-  function postFormData(submitedData){  
-    setTransactionList([...TransactionList,submitedData])
-    fetch('http://localhost:3002/transactions',{
-      method:'POST',
-      body: JSON.stringify(submitedData),
-      headers:{
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
-    }
-    ).then(r => r.json())
-    .then(data => {
-      let newArray = [...TransactionList];
-      newArray.push(data)
-      setTransactionList(newArray)
-      alert('Your transaction was added successfully!')
-    });
-  }
-  },[submittedData])
   
   return (
     <div className="ui segment">
