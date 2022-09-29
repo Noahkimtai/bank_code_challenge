@@ -42,12 +42,11 @@ function AddTransactionForm({TransactionList}) {
     setAmount(e.target.value);
   }
   // when formData has been updated useEffect to call the function that will post the data to server
-  useEffect(() =>{
-    //handle formdata 
   // Add submission to transaction list on the page
-    /* transactionArray.map((transactionEl) =><Transaction transaction ={transactionEl}/>) */
-    // post the data to db.json
+  // post the data to db.json
+  useEffect(() =>{
   function postFormData(submitedData){  
+    setTransactionList([...TransactionList,submitedData])
     fetch('http://localhost:3002/transactions',{
       method:'POST',
       body: JSON.stringify(submitedData),
@@ -58,9 +57,8 @@ function AddTransactionForm({TransactionList}) {
     }
     ).then(r => r.json())
     .then(data => {
-      let newArray = [];
+      let newArray = [...TransactionList];
       newArray.push(data)
-      // update the dom with posted data
       setTransactionList(newArray)
       alert('Your transaction was added successfully!')
     });
