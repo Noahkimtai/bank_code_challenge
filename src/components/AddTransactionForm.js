@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Transaction from "./Transaction";
 
-function AddTransactionForm({postFormData}) {
+function AddTransactionForm({TransactionList}) {
+
+  const [transactionList,setTransactionList] = useState(TransactionList);
   // create an object to hold the added transaction
   const [date, setDate] =useState('')
   const [description, setDescription] =useState('')
@@ -41,7 +43,28 @@ function AddTransactionForm({postFormData}) {
   }
   // when formData has been updated useEffect to call the function that will post the data to server
   useEffect(() =>{
-    postFormData(submittedData)
+    //handle formdata 
+  // Add submission to transaction list on the page
+    /* transactionArray.map((transactionEl) =><Transaction transaction ={transactionEl}/>) */
+    // post the data to db.json
+  function postFormData(submitedData){  
+    fetch('http://localhost:3002/transactions',{
+      method:'POST',
+      body: JSON.stringify(submitedData),
+      headers:{
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
+    }
+    ).then(r => r.json())
+    .then(data => {
+      let newArray = [];
+      newArray.push(data)
+      // update the dom with posted data
+      setTransactionList(newArray)
+      alert('Your transaction was added successfully!')
+    });
+  }
   },[submittedData])
   
   return (
