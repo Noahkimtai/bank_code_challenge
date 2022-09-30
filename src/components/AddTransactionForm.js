@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import Transaction from "./Transaction";
 
 function AddTransactionForm({TransactionList}) {
-
   const [transactionList,setTransactionList] = useState(TransactionList);
-  // create an object to hold the added transaction
+  // create state to hold the added transaction
   const [date, setDate] =useState('')
   const [description, setDescription] =useState('')
   const [category, setCategory] =useState('')
@@ -46,33 +45,18 @@ function AddTransactionForm({TransactionList}) {
     setDescription('');
     setCategory('');
     setAmount('');
-};
+  };
 
-
-  function handleDateChange(e){
-    setDate(e.target.value);
-  }
-  function handleDescriptionChange(e){
-    setDescription(e.target.value);
-  }
-  
-  function handleCategoryChange(e){
-    setCategory(e.target.value);
-  }
-  function handleAmountChange(e){
-    setAmount(e.target.value);
-  }
-  
   return (
     <div className="ui segment">
       <form className="ui form" onSubmit={() =>handleSubmit}>
         <div className="inline fields">
-          <input type="date" name="date" onChange={handleDateChange} value={date}/>
-          <input type="text" name="description" placeholder="Description" onChange={handleDescriptionChange} value={description} />
-          <input type="text" name="category" placeholder="Category" onChange={handleCategoryChange} value={category} />
-          <input type="number" name="amount" placeholder="Amount" step="0.01" onChange={handleAmountChange} value={amount} />
+          <input type="date" name="date" onChange={(e) =>setDate(e.target.value)} value={date}/>
+          <input type="text" name="description" placeholder="Description" onChange={(e) =>setDescription(e.target.value)} value={description} />
+          <input type="text" name="category" placeholder="Category" onChange={(e) =>setCategory(e.target.value)} value={category} />
+          <input type="number" name="amount" placeholder="Amount" step="0.01" onChange={(e) =>setAmount(e.target.value)} value={amount} />
         </div>
-        <button className="ui button" type="submit">
+        <button onClick={handleSubmit}className="ui button" type="submit">
           Add Transaction
         </button>
       </form>

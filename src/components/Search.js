@@ -20,7 +20,7 @@ function Search({searchLogic}) {
     <div className="ui large fluid icon input">
       <input
         type="text"
-        placeholder="Search your Recent Transactions"
+        placeholder="Search your Recent Transactions using description"
         onChange={handleSearch}
       />
       <i className="circular search link icon"></i>
