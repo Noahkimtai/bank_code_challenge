@@ -24,7 +24,7 @@ function AddTransactionForm({TransactionList}) {
   // post the data to db.json
   useEffect(() =>{ 
     setTransactionList([...TransactionList,submittedData])
-    fetch('http://localhost:3002/transactions',{
+    fetch('http://localhost:8001/transactions',{
       method:'POST',
       body: JSON.stringify(submittedData),
       headers:{

@@ -11,7 +11,7 @@ function AccountContainer() {
   const [transactionList, setTransactionList] = useState([]);
   // fetch list of transactions as a side effect of the page load
   useEffect(() =>{
-    fetch('http://localhost:3002/transactions').then(res => res.json())
+    fetch('http://localhost:8001/transactions').then(res => res.json())
     .then(data => setTransactionList(data))
   },[]);
 
@@ -19,7 +19,7 @@ function AccountContainer() {
   const [search, setSearch] = useState([...transactionList])
   // function to filter the data based on the search
   function searchLogic(searchDescription){
-    fetch('http://localhost:3002/transactions').then(r =>r.json()).
+    fetch('http://localhost:8001/transactions').then(r =>r.json()).
     then(data => {const filteredData = data.filter(el =>el.description.includes(searchDescription))
     setTransactionList(filteredData)
   });
